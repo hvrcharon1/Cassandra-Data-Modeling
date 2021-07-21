@@ -1,0 +1,64 @@
+For this lesson, I have installed VirtualBox on my Mac.  I’ve also installed Ubuntu.  and I have Cassandra following instructions from the Apache foundation. I’ve installed Java Runtime Envrionment (JRE) as well. I’ve started a terminal window in Ubuntu.
+ 
+ 
+Exercise 1 - Create Keyspace and Table
+ 
+CREATE KEYSPACE perfmonitor
+WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1};
+ 
+USE perfmonitor
+ 
+CREATE TABLE app_instance (
+            app_id int,
+    app_name varchar,
+    proc_id varchar,
+    host_id varchar,
+    os_priority int,
+    cpu_time int,
+    num_io_ops int,
+PRIMARY KEY (host_id, proc_id)
+)
+WITH CLUSTERING ORDER BY (proc_id DESC)
+ 
+ 
+DESCRIBE app_instance
+ 
+ 
+insert into app_instance 
+    (app_id, host_id, proc_id, app_name,os_priority,cpu_time,num_io_ops) 
+values 
+   (1,'Host1','Proc1','App1',90,145,250);
+ 
+insert into app_instance 
+    (app_id, host_id, proc_id, app_name,os_priority,cpu_time,num_io_ops) 
+values 
+   (2,'Host2','Proc2,'App2',60,155,550);
+ 
+insert into app_instance 
+    (app_id, host_id, proc_id, app_name,os_priority,cpu_time,num_io_ops) 
+values 
+   (3,'Host3','Proc3','App3',70,120,300);
+ 
+insert into app_instance 
+    (app_id, host_id, proc_id, app_name,os_priority,cpu_time,num_io_ops) 
+values 
+   (4,'Host4','Proc4','App4',74,124,340);
+ 
+insert into app_instance 
+    (app_id, host_id, proc_id, app_name,os_priority,cpu_time,num_io_ops) 
+values 
+   (5,'Host5','Proc5','App5',85,135,450);
+ 
+Select * from app_instance;
+ 
+Select * from app_instance where proc_id = ‘App4’;
+ 
+Create index appname_idx on app_instance(app_name);
+ 
+Describe app_instance;
+ 
+select * from app_instance where app_name ='App1';
+ 
+select * from app_instance where proc_id ='Proc5'; (will generate an error)
+ 
+

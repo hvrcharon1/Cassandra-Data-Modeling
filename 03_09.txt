@@ -1,0 +1,55 @@
+-- Create a devcies table to demonstrate how to create unique IDs and delete rows and columns
+CREATE TABLE devices (
+    id uuid,                         
+    device_name text,
+    ip_address  set<text>,
+    location map<text, text>,
+    installation_date date,
+    installation_year int,
+    manufacturer text,
+    serial_number text,
+    PRIMARY KEY (id));
+
+
+-- Insert example rows using the UUID function to create unique IDs
+Insert into devices  
+   (id, device_name, ip_address, location, installation_date, installation_year, manufacturer, serial_number) 
+Values 
+  (uuid(), 'Server1', {'192.168.0.1'}, {'data center':'DC1', 'rack':'Rack1'}, '2015-01-20', 2015, 'Acme', 'SN12345');
+
+Insert into devices  
+   (id, device_name, ip_address, location, installation_date, installation_year, manufacturer, serial_number) 
+Values 
+  (uuid(), 'Server2', {'192.168.0.2','192.168.0.3'}, {'data center':'DC1', 'rack':'Rack1'}, '2016-02-10', 2016, 'Acme', 'SN32415746');
+
+Insert into devices  
+   (id, device_name, ip_address, location, installation_date, installation_year, manufacturer, serial_number) 
+Values 
+  (uuid(), 'Server3', {'192.168.0.4'}, {'data center':'DC2', 'rack':'Rack3'}, '2016-12-10', 2016, 'Acme', 'SN7891852');
+
+
+-- Delete a column from a row vs. deleting an entire row.
+
+—- Note, the following commands do not have UUIDs specified. They will 
+—- be different for each row inserted. To view UUIDs for each row, enter the 
+—- following command:
+
+select id, device_name from devices;
+
+delete device_name from devices where id =  <insert a UUID from one of the rows inserted above>
+
+delete from devices where id = <insert a UUID from one of the rows inserted above>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

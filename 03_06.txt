@@ -1,0 +1,25 @@
+Exercise - Create Time Series Table
+ 
+Use perfmonitor;
+ 
+create table server_cpu_utilization (
+               server_id varchar,
+               meaure_time timestamp,
+               cpu_utilization int,
+               primary key (server_id, measure_time));
+ 
+Describe server_cpu_utilization
+ 
+insert into server_cpu_utilization (server_id, measure_time, cpu_utilization) values ('appserver1','2017-05-20 07:01:00', 83) using ttl 86400;
+ 
+insert into server_cpu_utilization (server_id, measure_time, cpu_utilization) values ('appserver1','2017-05-20 07:02:00', 85) using ttl 86400;
+ 
+insert into server_cpu_utilization (server_id, measure_time, cpu_utilization) values ('appserver1','2017-05-20 07:03:00', 87) using ttl 86400;
+ 
+Select * from server_cpu_utilization
+ 
+Select cpu_utilization, TTL(cpu_utilization) from server_cpu_utilization;
+ 
+Select cpu_utilization, TTL(cpu_utilization) from server_cpu_utilization;  (TTL should be shorter)
+ 
+
